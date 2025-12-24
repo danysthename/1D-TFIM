@@ -35,12 +35,23 @@ def sweep_energy(N, J, h_values):
     return energies, wavefunctions
 
 
+import argparse
+
 def main():
-    # fix size
-    N = 2
-    J = 1.0
+    parser = argparse.ArgumentParser(description="Sweep transverse field for 1D TFIM.")
+    parser.add_argument("--N", type=int, default=2, help="Number of spins")
+    parser.add_argument("--J", type=float, default=1.0, help="Coupling constant")
+    parser.add_argument("--h_min", type=float, default=0.0, help="Minimum h value")
+    parser.add_argument("--h_max", type=float, default=2.0, help="Maximum h value")
+    parser.add_argument("--steps", type=int, default=20, help="Number of h steps")
     
-    h_values = np.linspace(0.0, 2.0, 20)
+    args = parser.parse_args()
+    
+    N = args.N
+    J = args.J
+    h_values = np.linspace(args.h_min, args.h_max, args.steps)
+    
+    print(f"Running sweep for N={N}, J={J}, h=[{args.h_min}, {args.h_max}] ({args.steps} steps)")
     
     energies, wavefunctions = sweep_energy(N, J, h_values)
     
@@ -52,8 +63,11 @@ def main():
     plt.show()
     
     # Save data for later use
-    data_path = os.path.join(os.path.dirname(__file__), '../data/gs_data_N2.npz')
+    data_dir = os.path.join(os.path.dirname(__file__), '../data')
+    os.makedirs(data_dir, exist_ok=True)
+    data_path = os.path.join(data_dir, f'gs_data_N{N}.npz')
     np.savez(data_path, h=h_values, energies=energies, states=wavefunctions)
+    print(f"Data saved to {data_path}")
 
 
 if __name__ == "__main__":
