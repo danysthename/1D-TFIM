@@ -60,16 +60,30 @@ where:
 ## Usage
 
 ### Running Analysis
-To run a sweep of the transverse field $h$ and plot the ground state energy:
+The analysis script `sweep_energy.py` now supports command-line arguments for flexibility.
 
+**Basic Run (default N=2):**
 ```bash
-python3 analysis/sweep_energy.py
+python analysis/sweep_energy.py
 ```
 
+**Custom Parameters:**
+Run a sweep for $N=10$ spins with 50 steps:
+```bash
+python analysis/sweep_energy.py --N 10 --steps 50
+```
+
+**Available Arguments:**
+- `--N`: Number of spins (default: 2)
+- `--J`: Coupling constant (default: 1.0)
+- `--h_min`: Minimum transverse field (default: 0.0)
+- `--h_max`: Maximum transverse field (default: 2.0)
+- `--steps`: Number of field steps (default: 20)
+
 This will:
-1.  Compute the ground state energy for a range of $h$ values (default: $N=2$, $J=1.0$).
+1.  Compute the ground state energy for the specified parameters.
 2.  Display a plot of Energy vs. Field.
-3.  Save the results to `data/gs_data_N2.npz`.
+3.  Save the results to `data/gs_data_N{N}.npz`.
 
 ### Using the Library
 You can use the `ed` module in your own scripts:
