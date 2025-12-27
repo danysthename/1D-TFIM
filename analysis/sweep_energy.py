@@ -1,3 +1,8 @@
+"""
+Firstly define a range of h values to sweep over
+Then for each h value, build the Hamiltonian and compute the ground state energy and wavefunction
+finally plot the energy vs h and store the E_0 and psi0 for later use.
+"""
 import numpy as np
 import sys
 import os

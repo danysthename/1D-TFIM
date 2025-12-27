@@ -1,3 +1,6 @@
+"""
+Use the operators defined in operators.py to generate the Hamiltonian for the 1D TFIM
+"""
 import numpy as np
 import scipy
 from scipy.sparse import csr_matrix, kron
@@ -6,8 +9,9 @@ from functools import reduce
 from .operators import sx, sz, I, kron_list
 
 
-
+"""Generate the Hamiltonian for the 1D TFIM"""
 def gen_hamiltonian(N, J, h):
+
     H = csr_matrix((2**N, 2**N))  # initialize as zero sparse matrix
     
     # X terms
