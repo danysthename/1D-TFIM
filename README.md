@@ -59,31 +59,31 @@ where:
 
 ## Usage
 
-### Running Analysis
-The analysis script `sweep_energy.py` now supports command-line arguments for flexibility.
-
-**Basic Run (default N=2):**
+### 1. Run Energy Sweep
+First, generate the ground state data for a specific $N$:
 ```bash
-python analysis/sweep_energy.py
+python analysis/sweep_energy.py --N 10
+```
+This saves the results to `data/gs_data_N10.npz`.
+
+### 2. Analyze Entanglement Entropy
+Visualize the phase transition by plotting Entanglement Entropy vs. Field:
+```bash
+python analysis/entanglement_entropy.py --N 10
 ```
 
-**Custom Parameters:**
-Run a sweep for $N=10$ spins with 50 steps:
+### 3. Inspect Wavefunction Structure
+Visualize the probability amplitudes $|c_i|^2$ to see the underlying structure and symmetry:
 ```bash
-python analysis/sweep_energy.py --N 10 --steps 50
+python analysis/inspect_wavefunction.py --N 10 --h 2.0
 ```
 
-**Available Arguments:**
-- `--N`: Number of spins (default: 2)
-- `--J`: Coupling constant (default: 1.0)
-- `--h_min`: Minimum transverse field (default: 0.0)
-- `--h_max`: Maximum transverse field (default: 2.0)
-- `--steps`: Number of field steps (default: 20)
-
-This will:
-1.  Compute the ground state energy for the specified parameters.
-2.  Display a plot of Energy vs. Field.
-3.  Save the results to `data/gs_data_N{N}.npz`.
+### 4. Scaling Analysis (Why MPS?)
+Demonstrate the motivation for Matrix Product States by comparing RAM usage (exponential) vs. Entanglement Entropy (area law):
+```bash
+python analysis/why_mps.py
+```
+This script runs a scan over $N=[2, 4, ..., 12]$ and saves a plot to `analysis/scaling_analysis.png`.
 
 ### Using the Library
 You can use the `ed` module in your own scripts:
